@@ -1,0 +1,47 @@
+# server port
+server:
+  port: 8000
+
+# application name
+spring:
+  application:
+    name: food-ordering-webapp
+
+  # database configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/foodsphere
+    username: postgres
+    password: 1234567890
+    driver-class-name: org.postgresql.Driver
+
+    # hikari config
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      pool-name: HikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+
+  # jpa and hibernate configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    naming:
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+# logging
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.foodsphere.config.JwtTokenValidator: DEBUG
+
+# stripe payment configuration
+stripe:
+  secretKey: ydgkhbkusgjdbcjegbkugjkbjfbcjsgiuagkjfbjhuyyliivhh
+  successUrl: http://localhost:5173/payment/success
+  cancelUrl: http://localhost:5173/payment/cancel
+  currency: USD
